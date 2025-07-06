@@ -23,7 +23,7 @@ will print a confirmation of the registry key being created or a failure.
 .USAGE
     Put any usage instructions here.
     Example syntax:
-    PS C:\> .\STIG-ID-WN10-AU-000505.ps1 
+    PS C:\> .\STIG-ID-WN10-AU-000510.ps1 
 #>
 
 # Variables for STIG enforcement
