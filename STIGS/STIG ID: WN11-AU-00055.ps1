@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
-    This PowerShell script ensures that The System event log size is configured to 32768 KB or greater. The script also includes a verification step which
-will print a confirmation of the registry key being created or a failure.
+    According to this STIG, Windows 11 must be configured to audit Other Policy Change Events Successes. The below :Powershell satisfies this STIG and also
+    confirms by print a confirmation or a failure message
 
 .NOTES
     Author          : Charlie Mathe
