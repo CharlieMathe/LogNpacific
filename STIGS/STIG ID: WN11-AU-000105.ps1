@@ -1,8 +1,7 @@
 <#
 .SYNOPSIS
-    According to this STiG, the system must be configured to audit Detailed Tracking - Process Creation successes. The below Powershell satisfies this
-STIG and also
-    confirms by printing a confirmation or a failure message.
+    According to this STiG, the system must be configured to audit Policy Change - Authentication Policy Change successes. The below Powershell satisfies this
+STIG and also confirms by printing a confirmation or a failure message.
 
 .NOTES
     Author          : Charlie Mathe
@@ -27,12 +26,11 @@ STIG and also
     PS C:\> .\STIG-ID-WN10-AU-000105.ps1 
 #>
 
-
 #-----------------------------#
 # 1.  Configuration section   #
 #-----------------------------#
-$auditSubCat = 'Process Creation'   # STIG-required sub-category
-$desired     = 'Success'            # What the STIG wants
+$auditSubCat = 'Authentication Policy Change'   # STIG-required sub-category
+$desired     = 'Success'                        # Required setting
 
 #-----------------------------#
 # 2.  Apply the audit policy  #
@@ -46,11 +44,9 @@ Start-Sleep -Seconds 1
 #-----------------------------#
 # 3.  Verification step       #
 #-----------------------------#
-# Get the single-subcategory read-back
-$report  = AuditPol.exe /get /subcategory:"$auditSubCat" | Out-String
-$line    = ($report -split "`n") | Where-Object { $_ -match $auditSubCat }
+$report = AuditPol.exe /get /subcategory:"$auditSubCat" | Out-String
+$line   = ($report -split "`n") | Where-Object { $_ -match $auditSubCat }
 
-# Extract the last token on that line (column = Setting)
 if ($line) {
     $setting = ($line.Trim().Split()[-1])
     if ($setting -eq $desired) {
@@ -60,12 +56,9 @@ if ($line) {
         Write-Host "Line:`n$line"
     }
 } else {
-    Write-Host "`n❌ FAILURE: Could not find '$auditSubCat' in AuditPol output!" -ForegroundColor Red
+    Write-Host "`n❌ FAILURE: '$auditSubCat' not found in AuditPol output!" -ForegroundColor Red
     Write-Host "Full output:`n$report"
 }
 
-#-----------------------------#
-# 4.  Exit code (optional)    #
-#-----------------------------#
-# $LASTEXITCODE = 0 for success, 1 for failure
+# Optional: return 0 on success, 1 on failure
 if ($setting -eq $desired) { exit 0 } else { exit 1 }
