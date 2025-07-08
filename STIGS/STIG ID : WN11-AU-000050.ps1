@@ -27,14 +27,6 @@ STIG and also
     PS C:\> .\STIG-ID-WN10-AU-000050.ps1 
 #>
 
-<#
- STIG ID : WN11-AU-000050
- Title   : Audit Detailed Tracking – Process Creation (successes)
- Author  : your-name
- Purpose : Enables auditing of **Process Creation** for **Success** only and
-           verifies the setting.
-#>
-
 #-----------------------------#
 # 1.  Configuration section   #
 #-----------------------------#
